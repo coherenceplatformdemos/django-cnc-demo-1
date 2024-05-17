@@ -1,0 +1,14 @@
+services:
+  app:
+    # activating the venv is due to using nixpacks, if you write your own dockerfile you don't need this part of the command
+    command: ". /opt/venv/bin/activate && python manage.py runserver 0.0.0.0:$PORT"
+    x-cnc:
+      type: backend
+      # migrate: ". /opt/venv/bin/activate && python manage.py migrate"
+    build:
+      context: .
+  db:
+    x-cnc:
+      type: database
+      version: 15
+    image: postgres
